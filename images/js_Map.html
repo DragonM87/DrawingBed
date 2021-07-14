@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <title> new document </title>
+  <meta name="generator" content="text/html; charset=utf-8"/>
+ </head>
+
+ <body>
+  <script type="text/javascript">
+		function Map(){
+		}
+		Map.prototype.map={};
+		Map.prototype.put=function(key,value){
+			this.map[key] = value;
+		}
+		Map.prototype.puts=function(arguments){
+			if( typeof arguments == 'object'){
+				for(var key in arguments){
+					this.map[key] = arguments[key]
+				}
+			}
+		}
+		Map.prototype.get=function(key){
+			return this.map[key] == undefined?'':this.map[key];
+		}
+
+		Map.prototype.keySet = function(){
+			var keys = [];
+			for(var key in this.map){
+				keys.push(key);
+			}
+			return keys;
+		}
+		Map.prototype.values = function(){
+			var values = [];
+			for(var key in this.map){
+				values.push(this.map[key]);
+			}
+			return values;
+		}
+		Map.prototype.clean = function(){
+			this.map = {};
+		}
+		Map.prototype.remove = function(key){
+			return delete this.map[key];
+		}
+		Map.prototype.removeAll = function(){
+			this.clean();
+		}
+		Map.prototype.size = function(){
+			return this.keySet().length;
+		}
+		Map.prototype.toURL = function(){
+			var params = [];
+			for(var key in this.map){
+				var val = this.map[key];
+				if(typeof val == 'object'){
+					params.push(key+'='+JSON.stringify(val));
+				}else{
+					params.push(key+'='+val);
+				}
+			}
+			return params.join('&');
+		}
+		var m = new Map();
+		m.put('b','bbb')
+		m.put(2,'222')
+		m.put('b','cc')
+		m.puts({3:'ccc',4:'ddd'})
+		m.put('aa',{'a':1,'b':2})
+		console.log(m.values())
+  </script>
+ </body>
+</html>
